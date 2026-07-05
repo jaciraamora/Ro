@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Octávio - Convite</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:Poppins,sans-serif;
+background:#f3f3f3;
+padding:20px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+h1{
+text-align:center;
+color:#1f2d45;
+margin-bottom:8px;
+}
+
+.data{
+text-align:center;
+font-size:14px;
+color:#777;
+margin-bottom:15px;
+}
+
+/* COUNTDOWN BONITO */
+.countdown{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-bottom:20px;
+}
+
+.time-box{
+background:#fff;
+padding:12px;
+border-radius:12px;
+text-align:center;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.time-box h2{
+margin:0;
+color:#0090ad;
+font-size:22px;
+}
+
+.time-box span{
+font-size:12px;
+color:#666;
+}
+
+.box{
+background:#fff;
+padding:20px;
+border-radius:16px;
+margin-bottom:20px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+input, select{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:1px solid #ddd;
+font-size:15px;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+margin-top:10px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+}
+
+.btn-send{
+background:#0090ad;
+color:#fff;
+}
+
+/* BOTÃO VAZIO CINZA */
+.btn-view{
+background:#d9d9d9;
+height:45px;
+border-radius:12px;
+}
+
+.list{
+display:none;
+background:#fff;
+padding:15px;
+border-radius:12px;
+margin-top:15px;
+}
+
+.item{
+padding:8px 0;
+border-bottom:1px solid #eee;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Octávio</h1>
+
+<div class="data">📅 Confirmar até 08 de Agosto de 2026</div>
+
+<!-- COUNTDOWN -->
+<div class="countdown">
+
+<div class="time-box">
+<h2 id="days">0</h2>
+<span>Dias</span>
+</div>
+
+<div class="time-box">
+<h2 id="hours">0</h2>
+<span>Horas</span>
+</div>
+
+<div class="time-box">
+<h2 id="minutes">0</h2>
+<span>Min</span>
+</div>
+
+<div class="time-box">
+<h2 id="seconds">0</h2>
+<span>Seg</span>
+</div>
+
+</div>
+
+<div class="box">
+
+<h3>Confirmar Presença</h3>
+
+<input type="text" id="nome" placeholder="Escreva o seu nome">
+
+<select id="presenca">
+<option value="Sim">Sim</option>
+<option value="Não">Não</option>
+</select>
+
+<button class="btn-send" id="btnEnviar">Enviar Confirmação</button>
+
+<button class="btn-view" id="btnVer"></button>
+
+<div class="list" id="listaConfirmados"></div>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAsSjgshsBDhIKFJy1Zmncp9VW-512o0u0",
+authDomain: "evento-rsvp.firebaseapp.com",
+databaseURL: "https://evento-rsvp-default-rtdb.firebaseio.com",
+projectId: "evento-rsvp",
+storageBucket: "evento-rsvp.firebasestorage.app",
+messagingSenderId: "576746668608",
+appId: "1:576746668608:web:e5d2171aa65c3cddec95a5"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+/* COUNTDOWN */
+const target = new Date("2026-08-08T23:59:59").getTime();
+
+setInterval(()=>{
+
+const now = new Date().getTime();
+const diff = target - now;
+
+document.getElementById("days").innerText = Math.floor(diff/(1000*60*60*24));
+document.getElementById("hours").innerText = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+document.getElementById("minutes").innerText = Math.floor((diff%(1000*60*60))/(1000*60));
+document.getElementById("seconds").innerText = Math.floor((diff%(1000*60))/1000);
+
+},1000);
+
+/* ENVIAR */
+document.getElementById("btnEnviar").addEventListener("click", ()=>{
+
+const nome = document.getElementById("nome").value;
+const presenca = document.getElementById("presenca").value;
+
+if(nome === ""){
+alert("Escreve o teu nome");
+return;
+}
+
+push(ref(db,"confirmacoes"),{
+nome,
+presenca
+});
+
+alert("Confirmação enviada!");
+document.getElementById("nome").value = "";
+
+});
+
+/* LISTA CORRIGIDA */
+let aberto = false;
+const lista = document.getElementById("listaConfirmados");
+
+document.getElementById("btnVer").addEventListener("click", ()=>{
+
+aberto = !aberto;
+lista.style.display = aberto ? "block" : "none";
+
+if(!aberto) return;
+
+onValue(ref(db,"confirmacoes"), (snap)=>{
+
+lista.innerHTML = "";
+
+let tem = false;
+
+snap.forEach((c)=>{
+
+const d = c.val();
+
+if(d.presenca === "Sim"){
+tem = true;
+lista.innerHTML += `<div class="item">✅ ${d.nome}</div>`;
+}
+
+});
+
+if(!tem){
+lista.innerHTML = "<div class='item'>Nenhum confirmado ainda</div>";
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
