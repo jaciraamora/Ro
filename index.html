@@ -1,280 +1,158 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Chá de Panela da Marcela</title>
+<title>Chá de panela</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-
 body{
-    margin:0;
-    font-family:Poppins,sans-serif;
-    background:#f3f3f3;
-    padding:20px;
+margin:0;
+font-family:Poppins,sans-serif;
+background:#f3f3f3;
+padding:20px;
 }
 
-.container{
-    max-width:900px;
-    margin:auto;
-}
+.container{max-width:900px;margin:auto;}
 
-h1{
-    text-align:center;
-    color:#1f2d45;
-    margin-bottom:8px;
-}
+h1{text-align:center;color:#1f2d45;margin-bottom:8px;}
 
-.data{
-    text-align:center;
-    font-size:14px;
-    color:#777;
-    margin-bottom:15px;
-}
-
-/* CONTADOR */
+.data{text-align:center;font-size:14px;color:#777;margin-bottom:15px;}
 
 .countdown{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    margin-bottom:20px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-bottom:20px;
 }
 
 .time-box{
-    background:#fff;
-    padding:12px;
-    border-radius:12px;
-    text-align:center;
-    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+background:#fff;
+padding:12px;
+border-radius:12px;
+text-align:center;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
 }
 
-.time-box h2{
-    margin:0;
-    color:#0090ad;
-    font-size:22px;
-}
-
-.time-box span{
-    font-size:12px;
-    color:#666;
-}
-
-/* CAIXAS */
+.time-box h2{margin:0;color:#0090ad;font-size:22px;}
+.time-box span{font-size:12px;color:#666;}
 
 .box{
-    background:#fff;
-    padding:20px;
-    border-radius:16px;
-    margin-bottom:20px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+background:#fff;
+padding:20px;
+border-radius:16px;
+margin-bottom:20px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
 }
 
-/* CAMPOS */
-
-input,
-select{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border-radius:10px;
-    border:1px solid #ddd;
-    font-size:15px;
-    box-sizing:border-box;
+input, select{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:1px solid #ddd;
+font-size:15px;
 }
-
-/* BOTÕES */
 
 button{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    margin-top:10px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+margin-top:10px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
 }
 
-.btn-send{
-    background:#0090ad;
-    color:#fff;
-}
-
-/* BOTÃO DISCRETO */
+.btn-send{background:#0090ad;color:#fff;}
 
 .btn-view{
-    width:50px;
-    height:14px;
-    background:#E5E5E5;
-    border:none;
-    border-radius:20px;
-    display:block;
-    margin:80px auto 0;
-    padding:0;
-    cursor:pointer;
+width:50px;
+height:14px;
+background:#E5E5E5;
+border:none;
+border-radius:20px;
+display:block;
+margin:80px auto 0;
+cursor:pointer;
 }
 
-/* LISTA */
-
 .list{
-    display:none;
-    background:#fff;
-    padding:15px;
-    border-radius:12px;
-    margin-top:15px;
+display:none;
+background:#fff;
+padding:15px;
+border-radius:12px;
+margin-top:15px;
 }
 
 .item{
-    padding:8px 0;
-    border-bottom:1px solid #eee;
+padding:8px 0;
+border-bottom:1px solid #eee;
 }
-
-/* BOTÕES EXTRAS */
 
 .btnExtra{
-    width:auto;
-    padding:10px 18px;
-    border:none;
-    border-radius:10px;
-    background:#ececec;
-    font-size:14px;
-    cursor:pointer;
+padding:10px 18px;
+border:none;
+border-radius:10px;
+background:#ececec;
+font-size:14px;
+cursor:pointer;
 }
 
-.btnExtra:hover{
-    background:#d8d8d8;
-}
-
-/* AÇÕES */
+.btnExtra:hover{background:#d8d8d8;}
 
 #acoesLista{
-    display:none;
-    justify-content:center;
-    gap:12px;
-    margin-top:18px;
+display:none;
+justify-content:center;
+gap:12px;
+margin-top:18px;
 }
-
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
 
-    <h1>Chá de Panela da Marcela</h1>
+<h1>Chá de panela da Marcela</h1>
 
-    <div class="data">
-        📅 Confirmar até 10 de Novembro de 2026
-    </div>
+<div class="data">📅 Confirmar até 10 de Novembro de 2026</div>
 
-    <!-- CONTADOR -->
-
-    <div class="countdown">
-
-        <div class="time-box">
-            <h2 id="days">0</h2>
-            <span>Dias</span>
-        </div>
-
-        <div class="time-box">
-            <h2 id="hours">0</h2>
-            <span>Horas</span>
-        </div>
-
-        <div class="time-box">
-            <h2 id="minutes">0</h2>
-            <span>Min</span>
-        </div>
-
-        <div class="time-box">
-            <h2 id="seconds">0</h2>
-            <span>Seg</span>
-        </div>
-
-    </div>
-
-
-    <!-- CONFIRMAÇÃO -->
-
-    <div class="box">
-
-        <h3>Confirmar Presença</h3>
-
-        <input
-            type="text"
-            id="nome"
-            placeholder="Digite o seu nome completo"
-        >
-
-        <select id="presenca">
-
-            <option value="Sim">
-                Sim
-            </option>
-
-            <option value="Não">
-                Não
-            </option>
-
-        </select>
-
-        <button
-            class="btn-send"
-            id="btnEnviar"
-        >
-            Enviar Confirmação
-        </button>
-
-
-        <!-- BOTÃO DISCRETO PARA VER LISTA -->
-
-        <button
-            class="btn-view"
-            id="btnVer"
-            aria-label="Ver lista de confirmados"
-        ></button>
-
-
-        <!-- LISTA -->
-
-        <div
-            class="list"
-            id="listaConfirmados"
-        ></div>
-
-
-        <!-- AÇÕES -->
-
-        <div id="acoesLista">
-
-            <button
-                id="btnCopiar"
-                class="btnExtra"
-            >
-                📋 Copiar Lista
-            </button>
-
-            <button
-                id="btnPDF"
-                class="btnExtra"
-            >
-                📄 Baixar PDF
-            </button>
-
-        </div>
-
-    </div>
-
+<div class="countdown">
+<div class="time-box"><h2 id="days">0</h2><span>Dias</span></div>
+<div class="time-box"><h2 id="hours">0</h2><span>Horas</span></div>
+<div class="time-box"><h2 id="minutes">0</h2><span>Min</span></div>
+<div class="time-box"><h2 id="seconds">0</h2><span>Seg</span></div>
 </div>
 
+<div class="box">
 
-<!-- FIREBASE -->
+<h3>Confirmar Presença</h3>
+
+<input type="text" id="nome" placeholder="Digite o seu nome completo">
+
+<select id="presenca">
+<option value="Sim">Sim</option>
+<option value="Não">Não</option>
+</select>
+
+<button class="btn-send" id="btnEnviar">Enviar Confirmação</button>
+
+<button class="btn-view" id="btnVer"></button>
+
+<div class="list" id="listaConfirmados"></div>
+
+<!-- AÇÕES DA LISTA (CORRIGIDO) -->
+<div id="acoesLista">
+<button id="btnCopiar" class="btnExtra">📋 Copiar Lista</button>
+<button id="btnPDF" class="btnExtra">📄 Baixar PDF</button>
+</div>
+
+</div>
+</div>
 
 <script type="module">
 
@@ -436,7 +314,7 @@ document
     try{
 
         await push(
-            ref(db,"Manuela"),
+            ref(db,"marcela"),
             {
                 nome: nome,
                 presenca: presenca
@@ -481,7 +359,7 @@ let aberto = false;
 
 
 onValue(
-    ref(db,"Manuela"),
+    ref(db,"marcela"),
     (snap)=>{
 
 
@@ -616,6 +494,8 @@ document
 });
 
 
+/* 
+
 /* ==========================================
    GERAR PDF
 ========================================== */
@@ -624,15 +504,9 @@ document
 .getElementById("btnPDF")
 .addEventListener("click", ()=>{
 
+    const { jsPDF } = window.jspdf;
 
-    const {
-        jsPDF
-    } = window.jspdf;
-
-
-    const pdf =
-        new jsPDF();
-
+    const pdf = new jsPDF();
 
     pdf.setFontSize(18);
 
@@ -642,46 +516,48 @@ document
         20
     );
 
-
     let y = 35;
-
+    let numero = 1;
 
     document
-    .querySelectorAll(
-        "#listaConfirmados .item"
-    )
-    .forEach(
-        (item)=>{
+    .querySelectorAll("#listaConfirmados .item")
+    .forEach((item)=>{
 
-            pdf.setFontSize(12);
+        // Remove o emoji ✅ da lista
+        const nome = item.innerText
+            .replace("✅", "")
+            .trim();
 
-            pdf.text(
-                item.innerText,
-                20,
-                y
-            );
+        pdf.setFontSize(12);
 
-            y += 10;
+        // Enumeração
+        pdf.text(
+            numero + ". " + nome,
+            20,
+            y
+        );
 
+        numero++;
+        y += 10;
+
+        // Cria uma nova página se necessário
+        if(y > 280){
+
+            pdf.addPage();
+
+            y = 20;
         }
-    );
 
+    });
 
     pdf.save(
         "confirmados-cha-de-panela-marcela.pdf"
     );
 
 });
-
 </script>
 
-
-<!-- jsPDF -->
-
-<script
-src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
-</script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </body>
 </html>
